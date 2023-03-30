@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @author: Jorge Londoño
  * 
  */
-public class ListaSimple<T> implements Iterable<T> {
+public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Comparable<T> {
 
     /**
      * Nodo representa un nodo de la lista simplemente enlazada
@@ -19,6 +19,11 @@ public class ListaSimple<T> implements Iterable<T> {
         Nodo sig;
     }
 
+    @Override
+    public int compareTo(T item) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+    }
     private Nodo first=null;
     private int n=0;
 
@@ -145,7 +150,21 @@ public class ListaSimple<T> implements Iterable<T> {
     public ListaSimple<T> invert() { return null; }
 
     /** Dividir una lista en dos mitades */
-    public ListaSimple<T>[] splitList() { return null; }
+    public Object[] splitList() {
+        int cnt = 0;
+        ListaSimple<T> lista1 = new ListaSimple<>();
+        ListaSimple<T> lista2 = new ListaSimple<>();
+        for(Nodo x=first; x!=null;x=x.sig)
+        {
+            if(cnt <= n/2) lista1.addHead(x.item);
+                else lista2.addHead(x.item);
+            cnt++;
+        }
+        Object[] array = new Object[2];
+        array[0] = lista1;
+        array[1] = lista2;
+        return array; 
+    }
 
     public static void main(String[] args) throws Exception {
         
