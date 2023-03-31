@@ -65,22 +65,23 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
     }
 
     public ListaSimple<T> marge(ListaSimple<T> a){
+
+        int lo = 0;
+        int mid = size();
         union(a);
+        int hi = size();
         ArrayList<T> lista = imprimir();
         ArrayList<T> aux = new ArrayList<>(lista);
-        int lo = 0;
-        int hi = size();
-        int mid = size()/2;
         int i = lo;
-        int j = mid +1;
-        for (int k = lo; k <= hi; k++) {
-            if      (i > mid)              lista.set(k, aux.get(j++));
-            else if (j > hi)               lista.set(k, aux.get(i++));
-            else if (aux.get(j).compareTo(aux.get(i)) > 0) lista.set(k, aux.get(j++));
+        int j = mid;
+        for (int k = lo; k < hi; k++) {
+            if      (i >= mid)              lista.set(k, aux.get(j++));
+            else if (j >= hi)               lista.set(k, aux.get(i++));
+            else if (aux.get(j).compareTo(aux.get(i)) < 0) lista.set(k, aux.get(j++));
             else                           lista.set(k, aux.get(i++));
         }
         ListaSimple<T> b =  new ListaSimple<>();
-        for (int k = size(); k >= 0; k--) {
+        for (int k = size()-1; k >= 0; k--) {
             b.addHead(lista.get(k));
         }
 

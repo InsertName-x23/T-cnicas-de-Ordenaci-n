@@ -5,13 +5,21 @@ public class Taller_2<T>{
     
     public static void main(String [] args){
         ListaSimple<Integer> a = new ListaSimple<>();
-        a.addHead(19);
+        a.addHead(20);
+
         a.addHead(5);
-        a.addHead(2);
+        
+       
+
 
         ListaSimple<Integer> b = new ListaSimple<>();
         b.addHead(22);
-        b.addHead(3);
+        b.addHead(8);
+        b.addHead(6);
+ 
+
+    
+ 
 
 
         
