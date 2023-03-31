@@ -1,3 +1,4 @@
+import java.rmi.server.ObjID;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -87,6 +88,19 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
 
         return b;
     }
+    
+    public void sort(ListaSimple<T> a){
+            union(a);      
+            Object[] list = new Object[this.size()];
+            for (int i = 0; i < list.length; i++) {
+                Object[] tmp = splitList();
+                tmp[1] = list[i];
+                tmp[2] = list[++i];
+            }
+
+            
+
+    }
 
  
     public Nodo ultimo(){
@@ -167,13 +181,16 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         {
             if(cnt <= n/2) {
                 lista1.addHead(x.item);
+                lista1.n = cnt;
             }
             else{
                 first = x;
                 lista2.addHead(x.item);
+                lista1.n = cnt;
             }
             cnt++;
         }
+
         Object[] array = new Object[2];
         array[0] = lista1;
         array[1] = lista2;
