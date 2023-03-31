@@ -11,26 +11,22 @@ import java.util.Iterator;
  */
 public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Comparable<T> {
 
-    /**
-     * Nodo representa un nodo de la lista simplemente enlazada
-     */
-    protected class Nodo {
-        T item;
-        Nodo sig;
-    }
-
-    @Override
-    public int compareTo(T item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-    }
     private Nodo first=null;
     private int n=0;
 
-    /**
-     * Agregar un item a la cabeza de la lista
-     * @param item
-     */
+    private class Nodo {
+        T item;
+        Nodo sig;
+    }
+    @Override
+    public int compareTo(T o) {
+        return compareTo(o);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new IteradorLista();
+    }
     public void addHead(T item) {
         Nodo x = new Nodo();
         x.item = item;
@@ -39,11 +35,6 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         n++;
     }
 
-    /**
-     * Remover el primer nodo de la lista
-     * @return item contenido en el nodo eliminado
-     * @throws Exception
-     */
     public T removeHead() throws Exception {
         if (first == null)
             throw new Exception("Lista vacia");
@@ -52,31 +43,51 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         n--;
         return i;
     }
-
-    /**
-     * True si la lista esta vacia
-     * @return
-     */
     public boolean isEmpty() {
         return n == 0;
     }
-
-    /**
-     * @return Longitud de la lista
-     */
     public int size() {
         return n;
     }
-
-    public void fusionar(ListaSimple<T> a){
-        ultimo().sig = a.first;
-        a.first = first;
-    }
-
     public Nodo primero(){
         return first; 
     }
+    public void union(ListaSimple<T> a){
+        n = size() + a.size();
+        ultimo().sig = a.first;
+        a.first = first;
+        
+    }
 
+    public void sort(ListaSimple<T> a, ListaSimple<T> aux){
+        int lo = 0;
+
+    }
+
+    public ListaSimple<T> marge(ListaSimple<T> a){
+        union(a);
+        ArrayList<T> lista = imprimir();
+        ArrayList<T> aux = new ArrayList<>(lista);
+        int lo = 0;
+        int hi = size();
+        int mid = size()/2;
+        int i = lo;
+        int j = mid +1;
+        for (int k = lo; k <= hi; k++) {
+            if      (i > mid)              lista.set(k, aux.get(j++));
+            else if (j > hi)               lista.set(k, aux.get(i++));
+            else if (aux.get(j).compareTo(aux.get(i)) > 0) lista.set(k, aux.get(j++));
+            else                           lista.set(k, aux.get(i++));
+        }
+        ListaSimple<T> b =  new ListaSimple<>();
+        for (int k = size(); k >= 0; k--) {
+            b.addHead(lista.get(k));
+        }
+
+        return b;
+    }
+
+ 
     public Nodo ultimo(){
         Nodo tmp = new Nodo();
 
@@ -101,10 +112,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
     /**
      * Obtener un iterador para la lista
      */
-    @Override
-    public Iterator<T> iterator() {
-        return new IteradorLista();
-    }
+
 
     /**
      * Implementacion del iterador para la lista simple
@@ -156,8 +164,13 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         ListaSimple<T> lista2 = new ListaSimple<>();
         for(Nodo x=first; x!=null;x=x.sig)
         {
-            if(cnt <= n/2) lista1.addHead(x.item);
-                else lista2.addHead(x.item);
+            if(cnt <= n/2) {
+                lista1.addHead(x.item);
+            }
+            else{
+                first = x;
+                lista2.addHead(x.item);
+            }
             cnt++;
         }
         Object[] array = new Object[2];
@@ -177,4 +190,5 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         assert(x==1);
         assert(l.size()==0);
     }
+
 }
