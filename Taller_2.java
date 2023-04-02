@@ -16,20 +16,13 @@ public class Taller_2<T>
         b.addHead(22);
     //    ArrayList<Integer> items = new ArrayList<>();
      //   ListaSimple<Integer> items = a.marge(b);
-
-    //    Object[] lista =  a.splitList();
-    //    ArrayList<Integer> items = a.sort().imprimir();
+     //   Object[] lista =  a.splitList();
+        ArrayList<Integer> items = a.sort().imprimir();
 
         
-      //  for (Integer x : items) {
-     //       System.out.println(x);
-     //   }
+        for (Integer x : items) {
+            System.out.println(x);
+        }
 
-        String c = "Siego Gonzalez";
-        String x = "Santiago Sanchez";
-    
-        if(c.compareTo(x) >= 0)System.out.println(true);  
-            else System.out.println(false);
     }
-    
 }

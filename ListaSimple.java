@@ -20,6 +20,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         T item;
         Nodo sig;
     }
+
     @Override
     public int compareTo(T o) {
         return compareTo(o);
@@ -89,27 +90,29 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
     public ListaSimple<T> sort() throws Exception{
         boolean par = false;
         int cnt = 0;
-        ListaSimple<T> b = new ListaSimple<>();
+        int cnt2 = 0;
+        ListaSimple<T> b = new ListaSimple<>();;
         Object[] aux = new Object[size()];    
         for(Nodo x=primero(); x!=null;x=x.sig)
         {
+            b = new ListaSimple<>();
             b.addHead(x.item);
             aux[cnt++] = b;
-            b.removeHead();
         }
         while(cnt != 1){
-            if(cnt%2 == 0) par = true;
-            else par = false;
-            cnt=0;
-            for (int i = 0; i < cnt; i++) 
+            par = (cnt%2 == 0)?true:false;
+            cnt2 = (cnt == aux.length)?aux.length:cnt;
+            cnt = 0;
+            for (int i = 0; i < cnt2; i++) 
             {
-                if(i == aux.length && !par) aux[i++] = b;
+                b = new ListaSimple<>();
+                if(i == cnt2-1 && !par) aux[cnt++] = aux[i];
                 else
                 {
-                    b=((ListaSimple<T>) aux[i]).marge((ListaSimple<T>) aux[i+1]);
-                    aux[i++] = b;
+                    b=((ListaSimple<T>) aux[i]).marge((ListaSimple<T>) aux[++i]);
+                    aux[cnt++] = b;
+
                 }   
-                cnt++;
             }
         }
         return (ListaSimple<T>) aux[0];
