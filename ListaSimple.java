@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.rmi.server.ObjID;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,13 +58,8 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         n = size() + a.size();
         ultimo().sig = a.first;
         a.first = first;
-        
     }
 
-    public void sort(ListaSimple<T> a, ListaSimple<T> aux){
-        int lo = 0;
-
-    }
 
     public ListaSimple<T> marge(ListaSimple<T> a){
 
@@ -88,17 +84,37 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
 
         return b;
     }
-    
-    public void sort(ListaSimple<T> a){
-            union(a);      
-            Object[] list = new Object[this.size()];
-            for (int i = 0; i < list.length; i++) {
-                Object[] tmp = splitList();
-                tmp[1] = list[i];
-                tmp[2] = list[++i];
-            }
 
-            
+     
+    public ListaSimple<T> sort() throws Exception{
+        boolean par = false;
+        int cnt = 0;
+        ListaSimple<T> b = new ListaSimple<>();
+        Object[] aux = new Object[size()];    
+        for(Nodo x=primero(); x!=null;x=x.sig)
+        {
+            b.addHead(x.item);
+            aux[cnt++] = b;
+            b.removeHead();
+        }
+        while(cnt != 1){
+            if(cnt%2 == 0) par = true;
+            else par = false;
+            cnt=0;
+            for (int i = 0; i < cnt; i++) 
+            {
+                if(i == aux.length && !par) aux[i++] = b;
+                else
+                {
+                    b=((ListaSimple<T>) aux[i]).marge((ListaSimple<T>) aux[i+1]);
+                    aux[i++] = b;
+                }   
+                cnt++;
+            }
+        }
+        return (ListaSimple<T>) aux[0];
+
+
 
     }
 
@@ -118,7 +134,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
 
         ArrayList<T> lista = new ArrayList<>();
 
-        for(Nodo x=first; x!=null;x=x.sig){
+        for(Nodo x=primero(); x!=null;x=x.sig){
             lista.add(x.item);
         }
         return lista;
@@ -177,7 +193,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         int cnt = 0;
         ListaSimple<T> lista1 = new ListaSimple<>();
         ListaSimple<T> lista2 = new ListaSimple<>();
-        for(Nodo x=first; x!=null;x=x.sig)
+        for(Nodo x=primero(); x!=null;x=x.sig)
         {
             if(cnt <= n/2) {
                 lista1.addHead(x.item);
