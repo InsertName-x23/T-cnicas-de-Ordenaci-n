@@ -6,23 +6,26 @@ public class Taller_2<T>
     
     public static void main(String [] args) throws Exception
     {
-        ListaSimple<Integer> a = new ListaSimple<>();
-        a.addHead(20);
-        a.addHead(15);
-        a.addHead(40);
-        a.addHead(34);
-        a.addHead(80);
-        ListaSimple<Integer> b = new ListaSimple<>();
-        b.addHead(22);
+        ListaSimple<String> a = new ListaSimple<>();
+        a.addHead("Diego Ospina");
+        a.addHead("Diego Gonzalez");
+       
+
+        ListaSimple<String> b = new ListaSimple<>();
+        b.addHead("Diego Ospina");
     //    ArrayList<Integer> items = new ArrayList<>();
      //   ListaSimple<Integer> items = a.marge(b);
      //   Object[] lista =  a.splitList();
-        ArrayList<Integer> items = a.sort().imprimir();
+       ArrayList<String> items = a.sort().imprimir();
 
         
-        for (Integer x : items) {
+        for (String x : items) {
             System.out.println(x);
         }
-
+    
+    
+    String s1 = "Diego Gonzalez";
+    String s2 = "Diego Ospina";
+    
     }
 }

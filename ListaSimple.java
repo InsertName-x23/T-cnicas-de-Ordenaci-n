@@ -3,6 +3,8 @@ import java.rmi.server.ObjID;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.management.ObjectName;
+
 /**
  * ListaSimple : Implementacion basica de la lista simplemente enlazada
  * Se proponen como ejercicios operaciones adicionales de la 
@@ -16,16 +18,40 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
     private Nodo first=null;
     private int n=0;
 
-    private class Nodo {
+    private class Nodo{
         T item;
         Nodo sig;
     }
 
     @Override
-    public int compareTo(T o) {
-        return compareTo(o);
+    public int compareTo(T item) {
+        if (this.getValor() instanceof String && item instanceof String) {
+            int space1 = ((String) item).indexOf(" ");
+            int space2 = ((String) getValor()).indexOf(" ");
+            char letra1 = ((String)item).charAt(0);
+            char letra2 = ((String)  getValor()).charAt(0);
+            int var = 0;
+            
+            while (space1 != -1 || space2 != -1) {
+                if(Character.compare(letra1, letra2) > 0) var = 1;
+                else if(Character.compare(letra1, letra2) < 0) var = -1;
+                else var = 0;
+                space1 = ((String) item).indexOf(" ", space1 + 1);
+                space2 = ((String) getValor()).indexOf(" ", space2 + 1);
+                letra1 = ((String) item).charAt(space1 +1);
+                letra2 = ((String)  getValor()).charAt(space2 + 1);
+            }
+            return var;
+        } else {
+            return compareTo(item);
+        }
+        
     }
-
+    public Object getValor(){
+        return this.primero().item;
+        
+        
+    }
     @Override
     public Iterator<T> iterator() {
         return new IteradorLista();
@@ -61,9 +87,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         a.first = first;
     }
 
-
     public ListaSimple<T> marge(ListaSimple<T> a){
-
         int lo = 0;
         int mid = size();
         union(a);
@@ -111,17 +135,11 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
                 {
                     b=((ListaSimple<T>) aux[i]).marge((ListaSimple<T>) aux[++i]);
                     aux[cnt++] = b;
-
                 }   
             }
         }
         return (ListaSimple<T>) aux[0];
-
-
-
     }
-
- 
     public Nodo ultimo(){
         Nodo tmp = new Nodo();
 
