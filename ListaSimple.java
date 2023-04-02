@@ -87,6 +87,29 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         a.first = first;
     }
 
+    public Object[] splitList() {
+        int cnt = 0;
+        ListaSimple<T> lista1 = new ListaSimple<>();
+        ListaSimple<T> lista2 = new ListaSimple<>();
+        for(Nodo x=primero(); x!=null;x=x.sig)
+        {
+            if(cnt <= n/2) {
+                lista1.addHead(x.item);
+                lista1.n = cnt;
+            }
+            else{
+                first = x;
+                lista2.addHead(x.item);
+                lista1.n = cnt;
+            }
+            cnt++;
+        }
+        Object[] array = new Object[2];
+        array[0] = lista1;
+        array[1] = lista2;
+        return array; 
+    }
+
     public ListaSimple<T> marge(ListaSimple<T> a){
         int lo = 0;
         int mid = size();
@@ -109,6 +132,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
 
         return b;
     }
+
 
      
     public ListaSimple<T> sort() throws Exception{
@@ -140,6 +164,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         }
         return (ListaSimple<T>) aux[0];
     }
+
     public Nodo ultimo(){
         Nodo tmp = new Nodo();
 
@@ -161,14 +186,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         return lista;
     }
 
-    /**
-     * Obtener un iterador para la lista
-     */
 
-
-    /**
-     * Implementacion del iterador para la lista simple
-     */
     private class IteradorLista implements Iterator<T> {
 
         private Nodo pos = first;
@@ -210,29 +228,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
     public ListaSimple<T> invert() { return null; }
 
     /** Dividir una lista en dos mitades */
-    public Object[] splitList() {
-        int cnt = 0;
-        ListaSimple<T> lista1 = new ListaSimple<>();
-        ListaSimple<T> lista2 = new ListaSimple<>();
-        for(Nodo x=primero(); x!=null;x=x.sig)
-        {
-            if(cnt <= n/2) {
-                lista1.addHead(x.item);
-                lista1.n = cnt;
-            }
-            else{
-                first = x;
-                lista2.addHead(x.item);
-                lista1.n = cnt;
-            }
-            cnt++;
-        }
 
-        Object[] array = new Object[2];
-        array[0] = lista1;
-        array[1] = lista2;
-        return array; 
-    }
 
     public static void main(String[] args) throws Exception {
         
