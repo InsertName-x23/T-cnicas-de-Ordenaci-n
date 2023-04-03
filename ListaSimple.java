@@ -25,32 +25,43 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
 
     @Override
     public int compareTo(T item) {
-        if (this.getValor() instanceof String && item instanceof String) {
-            int space1 = ((String) item).indexOf(" ");
-            int space2 = ((String) getValor()).indexOf(" ");
-            char letra1 = ((String)item).charAt(0);
-            char letra2 = ((String)  getValor()).charAt(0);
-            int var = 0;
-            
-            while (space1 != -1 || space2 != -1) {
-                if(Character.compare(letra1, letra2) > 0) var = 1;
-                else if(Character.compare(letra1, letra2) < 0) var = -1;
-                else var = 0;
-                space1 = ((String) item).indexOf(" ", space1 + 1);
-                space2 = ((String) getValor()).indexOf(" ", space2 + 1);
-                letra1 = ((String) item).charAt(space1 +1);
-                letra2 = ((String)  getValor()).charAt(space2 + 1);
-            }
-            return var;
-        } else {
-            return compareTo(item);
+    if (this.getValor() instanceof String && item instanceof String) {
+        String thisName = ((String) this.getValor()).toUpperCase();
+        String itemName = ((String) item).toUpperCase();
+
+        // Split name into first and last name
+        String[] thisNameParts = thisName.split("\\s+");
+        String[] itemNameParts = itemName.split("\\s+");
+        int result = 0;
+
+        // Compare first name
+        result = Character.compare(thisNameParts[0].charAt(0), itemNameParts[0].charAt(0));
+        if (result != 0) {
+            return result;
         }
-        
+        // Compare second name if exists
+        if (thisNameParts.length > 1 && itemNameParts.length > 1) {
+            result = Character.compare(thisNameParts[1].charAt(0), itemNameParts[1].charAt(0));
+            if (result != 0) {
+                return result;
+            }
+        }
+        // Compare last name
+        String thisLastName = thisNameParts[thisNameParts.length - 1];
+        String itemLastName = itemNameParts[itemNameParts.length - 1];
+        result = Character.compare(thisLastName.charAt(0), itemLastName.charAt(0));
+        if (result != 0) {
+            return result;
+        }
+
+        // If all parts are equal, compare by length
+        return Integer.compare(thisName.length(), itemName.length());
+    } else {
+        return ((T) this.getValor()).compareTo((T) item);
+    }
     }
     public Object getValor(){
         return this.primero().item;
-        
-        
     }
     @Override
     public Iterator<T> iterator() {
@@ -119,10 +130,14 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         ArrayList<T> aux = new ArrayList<>(lista);
         int i = lo;
         int j = mid;
+        ListaSimple<T> jsave = new ListaSimple<>();
         for (int k = lo; k < hi; k++) {
+            jsave = new ListaSimple<>();
+            if(i >= mid || j >= hi);
+            else jsave.addHead(aux.get(j));
             if      (i >= mid)              lista.set(k, aux.get(j++));
             else if (j >= hi)               lista.set(k, aux.get(i++));
-            else if (aux.get(j).compareTo(aux.get(i)) < 0) lista.set(k, aux.get(j++));
+            else if (jsave.compareTo(aux.get(i)) < 0) lista.set(k, aux.get(j++));
             else                           lista.set(k, aux.get(i++));
         }
         ListaSimple<T> b =  new ListaSimple<>();
