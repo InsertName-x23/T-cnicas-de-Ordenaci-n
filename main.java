@@ -15,43 +15,51 @@ public class main<T>
     {
 
     //Organizar una lsita de nombres --------------------------------------------------->
+        float start = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         ListaSimple<String> a = new ListaSimple<>();
         GeneradorADTs g = new GeneradorADTs();
 
-        List<Person> personas = g.generar(100);
+        List<Person> personas = g.generar(10);
 
         for (Person p : personas)
             a.addHead(p.toString());
        
-       ArrayList<String> items = a.sort().imprimir();
+        ArrayList<String> items = a.sort().imprimir();
 
         for (String x : items) {
             System.out.println(x);
         }
 
+        long end = System.currentTimeMillis();
+        float elapsedTime = end - start;
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);  // en nanosegundos
+        double seconds = (double) duration / 1000000000.0;
+        System.out.println("Tiempo en segundos: " + seconds); 
     //Orgnmaizar una lista de numeros enteros assert() ------------------------------->
-        // ListaSimple<Integer> enteros = new ListaSimple<>();
-        // enteros.addHead(10); 
-        // enteros.addHead(50); 
-        // enteros.addHead(10); 
-        // enteros.addHead(34); 
-        // enteros.addHead(21); 
-        // enteros.addHead(2); 
-        // enteros.addHead(99); 
-        // enteros.addHead(15); 
-        // enteros.addHead(0); 
-        // ListaSimple<Integer> enterosOrdenados = new ListaSimple<>();
-        // enterosOrdenados.addHead(0); 
-        // enterosOrdenados.addHead(2); 
-        // enterosOrdenados.addHead(10); 
-        // enterosOrdenados.addHead(10); 
-        // enterosOrdenados.addHead(15); 
-        // enterosOrdenados.addHead(21); 
-        // enterosOrdenados.addHead(34); 
-        // enterosOrdenados.addHead(50); 
-        // enterosOrdenados.addHead(99); 
-       // ArrayList<Integer> items = enteros.sort().imprimir();
-        // assert(enteros == enterosOrdenados);
+        ListaSimple<Integer> enteros = new ListaSimple<>();
+        enteros.addHead(10); 
+        enteros.addHead(50); 
+        enteros.addHead(10); 
+        enteros.addHead(34); 
+        enteros.addHead(21); 
+        enteros.addHead(2); 
+        enteros.addHead(99); 
+        enteros.addHead(15); 
+        enteros.addHead(0); 
+        ListaSimple<Integer> enterosOrdenados = new ListaSimple<>();
+        enterosOrdenados.addHead(99); 
+        enterosOrdenados.addHead(50); 
+        enterosOrdenados.addHead(34); 
+        enterosOrdenados.addHead(21); 
+        enterosOrdenados.addHead(15); 
+        enterosOrdenados.addHead(10); 
+        enterosOrdenados.addHead(10); 
+        enterosOrdenados.addHead(2); 
+        enterosOrdenados.addHead(0); 
+        ListaSimple<Integer> enterosSort = enteros.sort();
+        assert(enterosSort == enterosOrdenados);
 
         // ListaSimple<Integer> n1 = new ListaSimple<>();
         // n1.addHead(0); 
