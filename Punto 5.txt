@@ -1,0 +1,3 @@
+a. N+N+N+N+(N-1) -> 5N-1
+b. N
+c. N+NLogN(5N-1)

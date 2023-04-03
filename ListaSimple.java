@@ -98,6 +98,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         a.first = first;
     }
 
+    // Eficiencia N
     public Object[] splitList() {
         int cnt = 0;
         ListaSimple<T> lista1 = new ListaSimple<>();
@@ -121,6 +122,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
         return array; 
     }
 
+    // Eficiencia 5N-1
     public ListaSimple<T> marge(ListaSimple<T> a){
         int lo = 0;
         int mid = size();
@@ -149,7 +151,7 @@ public class ListaSimple<T extends Comparable<T>> implements Iterable<T>, Compar
     }
 
 
-     
+    // Eficiencia N+NLogN(5N-1)
     public ListaSimple<T> sort() throws Exception{
         boolean par = false;
         int cnt = 0;
